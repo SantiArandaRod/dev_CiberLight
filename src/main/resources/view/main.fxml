@@ -45,11 +45,11 @@
 
             <children>
 
-                <Button text="Dashboard" onAction="#openDashboard"/>
-                <Button text="Lotes" onAction="#openLotes"/>
-                <Button text="Técnicos" onAction="#openTecnicos"/>
-                <Button text="Materiales" onAction="#openMateriales"/>
-                <Button text="Alertas" onAction="#openAlertas"/>
+                <Button text="Dashboard" prefWidth="140" prefHeight="140" onAction="#openDashboard"/>
+                <Button text="Lotes" prefWidth="140" prefHeight="140" onAction="#openLotes"/>
+                <Button text="Técnicos" prefWidth="140" prefHeight="140" onAction="#openTecnicos"/>
+                <Button text="Materiales" prefWidth="140" prefHeight="140" onAction="#openMateriales"/>
+                <Button text="Alertas" prefWidth="140" prefHeight="140" onAction="#openAlertas"/>
 
             </children>
         </VBox>
