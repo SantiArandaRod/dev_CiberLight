@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.ciber.controller.AgregarTecnicoController">
+
+    <children>
+
+        <Label text="Agregar Técnico"
+               style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+
+        <TextField fx:id="txtNombre"
+                   promptText="Nombre"/>
+
+        <TextField fx:id="txtEspecialidad"
+                   promptText="Especialidad"/>
+
+        <Button text="Guardar"
+                onAction="#guardarTecnico"/>
+
+    </children>
+
+</VBox>
