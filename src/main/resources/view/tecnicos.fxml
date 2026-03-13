@@ -1,54 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400" prefWidth="650"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.ciber.controller.TecnicosController">
 
-    <VBox spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+    <children>
 
-        <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-        </padding>
+        <VBox spacing="10"
+              AnchorPane.topAnchor="10"
+              AnchorPane.leftAnchor="10"
+              AnchorPane.rightAnchor="10"
+              AnchorPane.bottomAnchor="10">
 
-        <Label style="-fx-font-size:16px; -fx-font-weight:bold;" text="Gestión de Técnicos" />
-      <GridPane prefHeight="61.0" prefWidth="317.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="btnAñadirTecnico" mnemonicParsing="false" text="Añadir Técnico" />
-            <Button fx:id="btnEliminarTecnico" mnemonicParsing="false" text="Eliminar Técnico" GridPane.columnIndex="1" />
-            <Button fx:id="btnInactivarTecnico" mnemonicParsing="false" text="Inactivar Técnico" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
+            <Label text="Gestión de Técnicos"
+                   style="-fx-font-size:18px; -fx-font-weight:bold;" />
 
-        <TableView prefHeight="260.0">
+            <TableView fx:id="tablaTecnicos" prefHeight="300">
 
-            <columns>
+                <columns>
 
-                <TableColumn text="ID" />
-                <TableColumn text="Nombre" />
-                <TableColumn text="Especialidad" />
-                <TableColumn text="Lotes Activos" />
+                    <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="180"/>
+                    <TableColumn fx:id="colEspecialidad" text="Especialidad" prefWidth="180"/>
+                    <TableColumn fx:id="colLotes" text="Lotes Activos" prefWidth="100"/>
+                    <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
 
-            </columns>
+                </columns>
 
-        </TableView>
+            </TableView>
 
-    </VBox>
+            <HBox spacing="10">
+
+                <Button text="Agregar Técnico"
+                        onAction="#abrirAgregarTecnico"/>
+
+                <Button text="Inactivar Técnico"
+                        onAction="#inactivarTecnico"/>
+
+            </HBox>
+
+        </VBox>
+
+    </children>
 
 </AnchorPane>
