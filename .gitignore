@@ -2,8 +2,6 @@ sr
 .idea/
 mvnw
 mvnw.cmd
-pom.xml
-
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
