@@ -1,7 +1,7 @@
 package com.ciber.controller;
 
-import com.ciber.model.Rol;
 import com.ciber.model.Tecnico;
+import com.ciber.service.TecnicoService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,7 +35,8 @@ public class TecnicosController {
     private ObservableList<Tecnico> listaTecnicos =
             FXCollections.observableArrayList();
 
-    private int siguienteId = 1;
+    // 🔥 NUEVO: service
+    private TecnicoService service = new TecnicoService();
 
     @FXML
     public void initialize(){
@@ -46,6 +47,7 @@ public class TecnicosController {
         colLotes.setCellValueFactory(new PropertyValueFactory<>("lotesActivos"));
         colEstado.setCellValueFactory(new PropertyValueFactory<>("activo"));
 
+        // Mostrar Activo/Inactivo
         colEstado.setCellFactory(col -> new TableCell<Tecnico, Boolean>() {
             @Override
             protected void updateItem(Boolean activo, boolean empty) {
@@ -61,6 +63,7 @@ public class TecnicosController {
 
         tablaTecnicos.setItems(listaTecnicos);
 
+        // Filas en gris si están inactivos
         tablaTecnicos.setRowFactory(tv -> new TableRow<>() {
             @Override
             protected void updateItem(Tecnico tecnico, boolean empty) {
@@ -78,21 +81,33 @@ public class TecnicosController {
             }
         });
 
+        // 🔥 Cargar desde BD
+        cargarDatos();
     }
 
+    // =========================
+    // 🔄 CARGAR DATOS
+    // =========================
+    private void cargarDatos(){
+
+        listaTecnicos.clear();
+        listaTecnicos.addAll(service.listar());
+
+    }
+
+    // =========================
+    // ➕ AGREGAR
+    // =========================
     public void agregarTecnico(String nombre,String especialidad){
 
-        Tecnico nuevo = new Tecnico(
-                siguienteId++,
-                nombre,
-                Rol.TECNICO,
-                especialidad
-        );
-
-        listaTecnicos.add(nuevo);
+        service.crear(nombre, especialidad);
+        cargarDatos();
 
     }
 
+    // =========================
+    // 🪟 ABRIR FORM
+    // =========================
     @FXML
     private void abrirAgregarTecnico(){
 
@@ -119,6 +134,9 @@ public class TecnicosController {
 
     }
 
+    // =========================
+    // ❌ INACTIVAR
+    // =========================
     @FXML
     private void inactivarTecnico(){
 
@@ -141,9 +159,10 @@ public class TecnicosController {
             return;
         }
 
-        tecnico.setActivo(false);
+        // 🔥 ahora se hace en BD
+        service.inactivar(tecnico.getId());
 
-        tablaTecnicos.refresh();
+        cargarDatos();
 
     }
 
