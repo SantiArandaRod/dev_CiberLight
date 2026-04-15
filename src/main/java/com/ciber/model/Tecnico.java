@@ -5,7 +5,7 @@ public class Tecnico extends Usuario {
     private String especialidad;
     private int lotesActivos;
 
-    public Tecnico(int id, String nombre, Rol rol, String especialidad) {
+    public Tecnico(int id, String nombre, Rol rol, boolean b, String especialidad) {
         super(id, nombre, rol);
         this.especialidad = especialidad;
         this.lotesActivos = 0;

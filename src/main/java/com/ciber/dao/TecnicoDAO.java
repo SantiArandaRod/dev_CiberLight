@@ -31,7 +31,7 @@ public class TecnicoDAO {
                         rs.getInt("id"),
                         rs.getString("nombre"),
                         Rol.TECNICO,
-                        rs.getString("especialidad")
+                        true, rs.getString("especialidad")
                 );
 
                 t.setLotesActivos(rs.getInt("lotes_activos"));
