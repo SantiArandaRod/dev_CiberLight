@@ -1,46 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.ciber.controller.LoteController">
 
-    <VBox spacing="10.0"
-          AnchorPane.topAnchor="10.0"
-          AnchorPane.leftAnchor="10.0"
-          AnchorPane.rightAnchor="10.0">
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10"
+          AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
 
-        <padding>
-            <Insets top="10" right="10" bottom="10" left="10"/>
-        </padding>
+        <Label text="Gestión de Lotes" style="-fx-font-size: 16px;"/>
 
-        <Label text="Gestión de Lotes"
-               style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+        <ComboBox fx:id="comboTecnicos" promptText="Seleccionar técnico"/>
 
-        <TableView prefHeight="250.0">
+        <TableView fx:id="tablaLotes" prefHeight="250">
 
             <columns>
-
-                <TableColumn text="ID"/>
-                <TableColumn text="Equipo"/>
-                <TableColumn text="Cliente"/>
-                <TableColumn text="Técnico"/>
-                <TableColumn text="Estado"/>
-                <TableColumn text="Tiempo Est."/>
-                <TableColumn text="Tiempo Real"/>
-
+                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="120"/>
+                <TableColumn fx:id="colCliente" text="Cliente" prefWidth="120"/>
+                <TableColumn fx:id="colTecnico" text="Técnico" prefWidth="120"/>
+                <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
             </columns>
 
         </TableView>
 
-        <HBox spacing="10.0">
-
-            <Button text="Crear Lote" prefWidth="140.0" prefHeight="40.0"/>
-            <Button text="Iniciar" prefWidth="120.0" prefHeight="40.0"/>
-            <Button text="Finalizar" prefWidth="120.0" prefHeight="40.0"/>
-
+        <HBox spacing="10">
+            <Button text="Crear" onAction="#crearLote"/>
+            <Button text="Finalizar" onAction="#finalizarLote"/>
+            <Button text="Eliminar" onAction="#eliminarLote"/>
         </HBox>
 
     </VBox>
