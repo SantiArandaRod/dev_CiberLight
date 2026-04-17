@@ -1,22 +1,30 @@
 package com.ciber.util;
 
+import com.ciber.config.DatabaseConfig;
+import com.ciber.config.DatabaseType;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBConnection {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/db_ciberlight";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException {
 
-        try {
-            return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        if (DatabaseConfig.getDatabase() == DatabaseType.MYSQL) {
+            return DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/db_ciberlight",
+                    "root",
+                    "password"
+            );
         }
 
-    }
+        if (DatabaseConfig.getDatabase() == DatabaseType.SQLITE) {
+            return DriverManager.getConnection(
+                    "jdbc:sqlite:db_ciberlightsqlite"
+            );
+        }
 
+        throw new SQLException("No database selected");
+    }
 }
