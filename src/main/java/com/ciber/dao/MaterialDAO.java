@@ -94,4 +94,31 @@ public class MaterialDAO {
             e.printStackTrace();
         }
     }
+    public Material buscarPorId(int id) {
+
+        String sql = "SELECT * FROM material WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                return new Material(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getInt("stock"),
+                        rs.getInt("stock_minimo")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

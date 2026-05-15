@@ -1,5 +1,7 @@
 package com.ciber.service;
 
+import com.ciber.audit.AuditAction;
+import com.ciber.audit.AuditService;
 import com.ciber.dao.MaterialDAO;
 import com.ciber.model.Material;
 
@@ -40,7 +42,32 @@ public class MaterialService {
     public boolean hayAlerta(Material m) {
         return m.getStock() < m.getStockMinimo();
     }
+    private final AuditService auditService =
+            new AuditService();
+
     public void eliminar(int id) {
+
+        Material materialViejo =
+                dao.buscarPorId(id);
+
+        if (materialViejo == null) {
+
+            throw new RuntimeException(
+                    "Material no encontrado"
+            );
+        }
+
+        auditService.log(
+
+                "material",
+
+                AuditAction.INACTIVATE,
+
+                materialViejo,
+
+                null
+        );
+
         dao.inactivar(id);
     }
 }

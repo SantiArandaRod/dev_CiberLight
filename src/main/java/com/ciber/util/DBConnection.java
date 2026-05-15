@@ -13,9 +13,9 @@ public class DBConnection {
 
         if (DatabaseConfig.getDatabase() == DatabaseType.MYSQL) {
             return DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/db_ciberlight",
-                    "root",
-                    "password"
+                    "jdbc:mysql://172.30.16.36:3306/db_ciberlight",
+                    "dsaranda89",
+                    "67001389"
             );
         }
 
