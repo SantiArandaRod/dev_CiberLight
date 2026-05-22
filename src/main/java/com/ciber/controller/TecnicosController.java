@@ -160,9 +160,15 @@ public class TecnicosController {
         }
 
         // 🔥 ahora se hace en BD
-        service.inactivar(tecnico.getId());
-
-        cargarDatos();
+        try {
+            service.inactivar(tecnico.getId());
+            cargarDatos();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
 
     }
 

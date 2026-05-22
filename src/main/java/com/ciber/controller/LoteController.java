@@ -114,9 +114,12 @@ public class LoteController {
 
         if (l == null) return;
 
-        service.finalizar(l.getId());
-
-        cargarLotes();
+        try {
+            service.finalizar(l.getId());
+            cargarLotes();
+        } catch (Exception e) {
+            mostrarError(e.getMessage());
+        }
     }
 
     @FXML
@@ -126,9 +129,12 @@ public class LoteController {
 
         if (l == null) return;
 
-        service.eliminar(l.getId());
-
-        cargarLotes();
+        try {
+            service.eliminar(l.getId());
+            cargarLotes();
+        } catch (Exception e) {
+            mostrarError(e.getMessage());
+        }
     }
 
     private void mostrarError(String msg) {

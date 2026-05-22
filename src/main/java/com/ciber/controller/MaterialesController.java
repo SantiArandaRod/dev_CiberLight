@@ -196,8 +196,12 @@ public class MaterialesController {
 
         confirm.showAndWait().ifPresent(resp -> {
             if (resp == ButtonType.OK) {
-                service.eliminar(m.getId());
-                cargarMateriales();
+                try {
+                    service.eliminar(m.getId());
+                    cargarMateriales();
+                } catch (Exception e) {
+                    mostrarError(e.getMessage());
+                }
             }
         });
     }

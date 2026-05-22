@@ -38,6 +38,13 @@ public class AuditService {
                                 ? DocumentMapper.toDocument(newData)
                                 : null);
 
-        repository.save(doc);
+        try {
+            repository.save(doc);
+        } catch (RuntimeException e) {
+            throw new IllegalStateException(
+                    "No se pudo respaldar en MongoDB. Verifica que MongoDB este iniciado.",
+                    e
+            );
+        }
     }
 }
