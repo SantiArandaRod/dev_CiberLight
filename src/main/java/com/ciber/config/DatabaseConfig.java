@@ -56,12 +56,12 @@ public class DatabaseConfig {
     }
 
     private static DatabaseType resolveDatabaseType() {
-        String configured = get("db.type", DatabaseType.MYSQL.name());
+        String configured = get("db.type", DatabaseType.SQLITE.name());
 
         try {
             return DatabaseType.valueOf(configured.trim().toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
-            return DatabaseType.MYSQL;
+            return DatabaseType.SQLITE;
         }
     }
 
