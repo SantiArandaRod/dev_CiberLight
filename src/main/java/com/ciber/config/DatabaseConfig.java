@@ -36,7 +36,7 @@ public class DatabaseConfig {
             return get("db.sqlite.url", "jdbc:sqlite:db_ciberlightsqlite");
         }
 
-        return get("db.mysql.url", "jdbc:mysql://172.30.16.36:3306/db_ciberlight");
+        return get("db.mysql.url", "jdbc:mysql://172.30.16.49:3306/db_ciberlight");
     }
 
     public static String getJdbcUser() {
@@ -48,7 +48,7 @@ public class DatabaseConfig {
     }
 
     public static String getMongoUri() {
-        return get("mongo.uri", "mongodb://172.30.16.104:27017");
+        return get("mongo.uri", "mongodb://172.30.16.49:27017/?serverSelectionTimeoutMS=3000");
     }
 
     public static String getMongoDatabase() {
