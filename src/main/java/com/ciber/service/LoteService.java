@@ -1,5 +1,7 @@
 package com.ciber.service;
 
+import com.ciber.audit.AuditAction;
+import com.ciber.audit.AuditService;
 import com.ciber.dao.LoteDAO;
 import com.ciber.model.Lote;
 
@@ -8,6 +10,7 @@ import java.util.List;
 public class LoteService {
 
     private LoteDAO dao = new LoteDAO();
+    private final AuditService auditService = new AuditService();
 
     public List<Lote> listar() {
         return dao.listar();
@@ -35,6 +38,19 @@ public class LoteService {
     }
 
     public void eliminar(int id) {
+        Lote loteViejo = dao.buscarPorId(id);
+
+        if (loteViejo == null) {
+            throw new RuntimeException("Lote no encontrado");
+        }
+
+        auditService.log(
+                "lote",
+                AuditAction.INACTIVATE,
+                loteViejo,
+                null
+        );
+
         dao.inactivar(id);
     }
 }

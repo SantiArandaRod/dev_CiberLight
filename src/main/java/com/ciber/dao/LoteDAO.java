@@ -112,4 +112,49 @@ public class LoteDAO {
             e.printStackTrace();
         }
     }
+
+    public Lote buscarPorId(int id) {
+
+        String sql = """
+            SELECT l.*, u.nombre as tecnico_nombre, t.id as tecnico_id
+            FROM lote l
+            JOIN tecnico t ON l.tecnico_id = t.id
+            JOIN usuario u ON t.id = u.id
+            WHERE l.id = ?
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Tecnico tecnico = new Tecnico(
+                            rs.getInt("tecnico_id"),
+                            rs.getString("tecnico_nombre"),
+                            null,
+                            true,
+                            null
+                    );
+
+                    return new Lote(
+                            rs.getInt("id"),
+                            rs.getString("nombre"),
+                            rs.getString("cliente"),
+                            rs.getDate("fecha_inicio").toLocalDate(),
+                            rs.getDate("fecha_fin") != null ? rs.getDate("fecha_fin").toLocalDate() : null,
+                            EstadoLote.valueOf(rs.getString("estado")),
+                            tecnico,
+                            rs.getBoolean("activo")
+                    );
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

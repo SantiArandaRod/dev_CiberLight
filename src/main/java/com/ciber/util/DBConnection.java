@@ -13,16 +13,14 @@ public class DBConnection {
 
         if (DatabaseConfig.getDatabase() == DatabaseType.MYSQL) {
             return DriverManager.getConnection(
-                    "jdbc:mysql://172.30.16.36:3306/db_ciberlight",
-                    "dsaranda89",
-                    "67001389"
+                    DatabaseConfig.getJdbcUrl(),
+                    DatabaseConfig.getJdbcUser(),
+                    DatabaseConfig.getJdbcPassword()
             );
         }
 
         if (DatabaseConfig.getDatabase() == DatabaseType.SQLITE) {
-            return DriverManager.getConnection(
-                    "jdbc:sqlite:db_ciberlightsqlite"
-            );
+            return DriverManager.getConnection(DatabaseConfig.getJdbcUrl());
         }
 
         throw new SQLException("No database selected");
