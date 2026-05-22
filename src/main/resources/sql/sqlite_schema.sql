@@ -1,0 +1,35 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS usuario (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    rol TEXT NOT NULL,
+    activo INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS tecnico (
+    id INTEGER PRIMARY KEY,
+    especialidad TEXT NOT NULL,
+    lotes_activos INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (id) REFERENCES usuario(id)
+);
+
+CREATE TABLE IF NOT EXISTS material (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    stock INTEGER NOT NULL DEFAULT 0,
+    stock_minimo INTEGER NOT NULL DEFAULT 0,
+    activo INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS lote (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    cliente TEXT NOT NULL,
+    fecha_inicio TEXT NOT NULL,
+    fecha_fin TEXT,
+    estado TEXT NOT NULL,
+    tecnico_id INTEGER NOT NULL,
+    activo INTEGER NOT NULL DEFAULT 1,
+    FOREIGN KEY (tecnico_id) REFERENCES tecnico(id)
+);

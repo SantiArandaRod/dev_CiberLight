@@ -91,4 +91,43 @@ public class TecnicoDAO {
         }
     }
 
+    public Tecnico buscarPorId(int id) {
+
+        String sql = """
+            SELECT u.id, u.nombre, u.rol, u.activo,
+                   t.especialidad, t.lotes_activos
+            FROM usuario u
+            JOIN tecnico t ON u.id = t.id
+            WHERE u.id = ?
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Tecnico tecnico = new Tecnico(
+                            rs.getInt("id"),
+                            rs.getString("nombre"),
+                            Rol.valueOf(rs.getString("rol")),
+                            rs.getBoolean("activo"),
+                            rs.getString("especialidad")
+                    );
+
+                    tecnico.setActivo(rs.getBoolean("activo"));
+                    tecnico.setLotesActivos(rs.getInt("lotes_activos"));
+
+                    return tecnico;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }

@@ -2,7 +2,6 @@ package com.ciber;
 
 import com.ciber.config.DatabaseConfig;
 import com.ciber.config.DatabaseType;
-import com.ciber.ui.DatabaseSelector;
 import com.ciber.util.DBInitializer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +13,6 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
-        // 🔥 seleccionar DB antes de todo
-        DatabaseSelector.seleccionar();
 
         if (DatabaseConfig.getDatabase() == DatabaseType.SQLITE) {
             DBInitializer.initSQLite();
