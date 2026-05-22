@@ -4,7 +4,9 @@ import com.ciber.model.*;
 import com.ciber.util.DBConnection;
 
 import java.sql.*;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +42,8 @@ public class LoteDAO {
                         rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getString("cliente"),
-                        rs.getDate("fecha_inicio").toLocalDate(),
-                        rs.getDate("fecha_fin") != null ? rs.getDate("fecha_fin").toLocalDate() : null,
+                        getLocalDate(rs, "fecha_inicio"),
+                        getLocalDate(rs, "fecha_fin"),
                         EstadoLote.valueOf(rs.getString("estado")),
                         t,
                         rs.getBoolean("activo")
@@ -69,7 +71,7 @@ public class LoteDAO {
 
             stmt.setString(1, l.getNombre());
             stmt.setString(2, l.getCliente());
-            stmt.setDate(3, Date.valueOf(l.getFechaInicio()));
+            stmt.setString(3, l.getFechaInicio().toString());
             stmt.setString(4, l.getEstado().name());
             stmt.setInt(5, l.getTecnico().getId());
 
@@ -85,10 +87,10 @@ public class LoteDAO {
         String sql = "UPDATE lote SET estado = ?, fecha_fin = ? WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, EstadoLote.FINALIZADO.name());
-            stmt.setDate(2, Date.valueOf(LocalDate.now()));
+            stmt.setString(2, LocalDate.now().toString());
             stmt.setInt(3, id);
 
             stmt.executeUpdate();
@@ -142,8 +144,8 @@ public class LoteDAO {
                             rs.getInt("id"),
                             rs.getString("nombre"),
                             rs.getString("cliente"),
-                            rs.getDate("fecha_inicio").toLocalDate(),
-                            rs.getDate("fecha_fin") != null ? rs.getDate("fecha_fin").toLocalDate() : null,
+                            getLocalDate(rs, "fecha_inicio"),
+                            getLocalDate(rs, "fecha_fin"),
                             EstadoLote.valueOf(rs.getString("estado")),
                             tecnico,
                             rs.getBoolean("activo")
@@ -156,5 +158,22 @@ public class LoteDAO {
         }
 
         return null;
+    }
+
+    private LocalDate getLocalDate(ResultSet rs, String column) throws SQLException {
+        String value = rs.getString(column);
+
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+
+        try {
+            return LocalDate.parse(value);
+        } catch (Exception ignored) {
+            long epochMillis = Long.parseLong(value);
+            return Instant.ofEpochMilli(epochMillis)
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+        }
     }
 }
