@@ -20,6 +20,10 @@ public class MainController {
             );
 
             contentArea.getChildren().setAll(pane);
+            AnchorPane.setTopAnchor(pane, 0.0);
+            AnchorPane.setRightAnchor(pane, 0.0);
+            AnchorPane.setBottomAnchor(pane, 0.0);
+            AnchorPane.setLeftAnchor(pane, 0.0);
 
         }catch(IOException e){
             e.printStackTrace();

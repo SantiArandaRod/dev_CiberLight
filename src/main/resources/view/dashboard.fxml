@@ -1,52 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane styleClass="page"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ciber.controller.DashboardController">
 
-    <VBox spacing="10.0" AnchorPane.topAnchor="10.0"
-          AnchorPane.leftAnchor="10.0"
-          AnchorPane.rightAnchor="10.0">
+    <VBox spacing="16" AnchorPane.bottomAnchor="18" AnchorPane.leftAnchor="18"
+          AnchorPane.rightAnchor="18" AnchorPane.topAnchor="18">
+        <Label styleClass="page-title" text="Dashboard"/>
+        <Label styleClass="page-subtitle" text="Estado operativo del sistema"/>
 
-        <padding>
-            <Insets top="10" right="10" bottom="10" left="10"/>
-        </padding>
-
-        <Label text="Dashboard Producción"
-               style="-fx-font-size:16px; -fx-font-weight:bold;"/>
-
-        <HBox spacing="10.0">
-
-            <VBox style="-fx-border-color:gray; -fx-padding:10;">
-                <Label text="Lotes Activos"/>
-                <Label text="12"/>
+        <HBox spacing="12">
+            <VBox spacing="6" styleClass="metric-card" HBox.hgrow="ALWAYS">
+                <Label styleClass="metric-label" text="Lotes activos"/>
+                <Label fx:id="lblLotesActivos" styleClass="metric-value" text="0"/>
             </VBox>
-
-            <VBox style="-fx-border-color:gray; -fx-padding:10;">
-                <Label text="Producción Hoy"/>
-                <Label text="8"/>
+            <VBox spacing="6" styleClass="metric-card" HBox.hgrow="ALWAYS">
+                <Label styleClass="metric-label" text="Materiales bajos"/>
+                <Label fx:id="lblMaterialesBajos" styleClass="metric-value" text="0"/>
             </VBox>
-
-            <VBox style="-fx-border-color:gray; -fx-padding:10;">
-                <Label text="Eficiencia"/>
-                <Label text="87%"/>
+            <VBox spacing="6" styleClass="metric-card" HBox.hgrow="ALWAYS">
+                <Label styleClass="metric-label" text="Técnicos activos"/>
+                <Label fx:id="lblTecnicosActivos" styleClass="metric-value" text="0"/>
             </VBox>
-
+            <VBox spacing="6" styleClass="metric-card" HBox.hgrow="ALWAYS">
+                <Label styleClass="metric-label" text="Finalizados"/>
+                <Label fx:id="lblLotesFinalizados" styleClass="metric-value" text="0"/>
+            </VBox>
         </HBox>
 
-        <BarChart prefHeight="180.0">
-            <xAxis>
-                <CategoryAxis label="Técnicos"/>
-            </xAxis>
-            <yAxis>
-                <NumberAxis label="Producción"/>
-            </yAxis>
-        </BarChart>
+        <Label styleClass="page-title" text="Materiales por debajo del mínimo"/>
 
+        <TableView fx:id="tablaAlertasMaterial" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colMaterial" prefWidth="320" text="Material"/>
+                <TableColumn fx:id="colStock" prefWidth="130" text="Stock"/>
+                <TableColumn fx:id="colMinimo" prefWidth="130" text="Mínimo"/>
+            </columns>
+        </TableView>
     </VBox>
 
 </AnchorPane>

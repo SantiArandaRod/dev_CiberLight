@@ -25,6 +25,9 @@ public class MainApp extends Application {
         Parent root = loader.load();
 
         Scene scene = new Scene(root, 720, 400);
+        scene.getStylesheets().add(
+                getClass().getResource("/style/app.css").toExternalForm()
+        );
 
         stage.setTitle("CiberLightCol - Sistema de Producción");
         stage.setScene(scene);
