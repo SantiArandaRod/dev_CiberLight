@@ -1,50 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400" prefWidth="650"
-            xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane styleClass="page"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.ciber.controller.TecnicosController">
 
-    <children>
+    <VBox spacing="14" AnchorPane.bottomAnchor="18" AnchorPane.leftAnchor="18"
+          AnchorPane.rightAnchor="18" AnchorPane.topAnchor="18">
+        <Label styleClass="page-title" text="Gestión de técnicos"/>
+        <Label styleClass="page-subtitle" text="Disponibilidad, especialidad y carga activa"/>
 
-        <VBox spacing="10"
-              AnchorPane.topAnchor="10"
-              AnchorPane.leftAnchor="10"
-              AnchorPane.rightAnchor="10"
-              AnchorPane.bottomAnchor="10">
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="toolbar">
+            <Button onAction="#abrirAgregarTecnico" styleClass="button-primary" text="Agregar"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button onAction="#inactivarTecnico" styleClass="button-danger" text="Inactivar"/>
+        </HBox>
 
-            <Label text="Gestión de Técnicos"
-                   style="-fx-font-size:18px; -fx-font-weight:bold;" />
-
-            <TableView fx:id="tablaTecnicos" prefHeight="300">
-
-                <columns>
-
-                    <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
-                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="180"/>
-                    <TableColumn fx:id="colEspecialidad" text="Especialidad" prefWidth="180"/>
-                    <TableColumn fx:id="colLotes" text="Lotes Activos" prefWidth="100"/>
-                    <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
-
-                </columns>
-
-            </TableView>
-
-            <HBox spacing="10">
-
-                <Button text="Agregar Técnico"
-                        onAction="#abrirAgregarTecnico"/>
-
-                <Button text="Inactivar Técnico"
-                        onAction="#inactivarTecnico"/>
-
-            </HBox>
-
-        </VBox>
-
-    </children>
+        <TableView fx:id="tablaTecnicos" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="70" text="ID"/>
+                <TableColumn fx:id="colNombre" prefWidth="220" text="Nombre"/>
+                <TableColumn fx:id="colEspecialidad" prefWidth="220" text="Especialidad"/>
+                <TableColumn fx:id="colLotes" prefWidth="130" text="Lotes activos"/>
+                <TableColumn fx:id="colEstado" prefWidth="120" text="Estado"/>
+            </columns>
+        </TableView>
+    </VBox>
 
 </AnchorPane>
