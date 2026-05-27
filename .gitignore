@@ -2,7 +2,7 @@ sr
 .idea/
 mvnw
 mvnw.cmd
-
+.env
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
