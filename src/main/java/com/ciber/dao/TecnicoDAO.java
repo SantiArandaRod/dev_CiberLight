@@ -91,6 +91,21 @@ public class TecnicoDAO {
         }
     }
 
+    public void restaurar(int id) {
+
+        String sql = "UPDATE usuario SET activo = TRUE WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public Tecnico buscarPorId(int id) {
 
         String sql = """

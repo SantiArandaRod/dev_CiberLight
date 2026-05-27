@@ -52,7 +52,7 @@ public class MainController {
     }
 
     @FXML
-    private void openAlertas(){
-        loadView("alertas.fxml");
+    private void openRestauracion(){
+        loadView("restauracion.fxml");
     }
 }
