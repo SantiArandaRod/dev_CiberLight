@@ -10,6 +10,7 @@ import java.util.List;
 public class MaterialService {
 
     private MaterialDAO dao = new MaterialDAO();
+    private final NotificationService notificationService = new NotificationService();
 
     public List<Material> listar() {
         return dao.listar();
@@ -33,10 +34,16 @@ public class MaterialService {
             throw new IllegalArgumentException("Cantidad inválida");
         }
 
+        Material antes = dao.buscarPorId(id);
         boolean ok = dao.disminuirStock(id, cantidad);
 
         if (!ok) {
             throw new RuntimeException("Stock insuficiente");
+        }
+
+        Material despues = dao.buscarPorId(id);
+        if (despues != null && cruzoStockMinimo(antes, despues)) {
+            notificationService.notifyStockMinimo(despues.getNombre(), despues.getStock());
         }
     }
     public boolean hayAlerta(Material m) {
@@ -44,6 +51,15 @@ public class MaterialService {
     }
     private final AuditService auditService =
             new AuditService();
+
+    private boolean cruzoStockMinimo(Material antes, Material despues) {
+        if (antes == null) {
+            return despues.getStock() < despues.getStockMinimo();
+        }
+
+        return antes.getStock() >= antes.getStockMinimo()
+                && despues.getStock() < despues.getStockMinimo();
+    }
 
     public void eliminar(int id) {
 

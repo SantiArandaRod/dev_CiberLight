@@ -115,6 +115,21 @@ public class LoteDAO {
         }
     }
 
+    public void restaurar(int id) {
+
+        String sql = "UPDATE lote SET activo = TRUE WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Lote buscarPorId(int id) {
 
         String sql = """

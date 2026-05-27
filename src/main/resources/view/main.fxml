@@ -39,7 +39,7 @@
             <Button maxWidth="Infinity" onAction="#openLotes" styleClass="nav-button" text="Lotes"/>
             <Button maxWidth="Infinity" onAction="#openTecnicos" styleClass="nav-button" text="Tecnicos"/>
             <Button maxWidth="Infinity" onAction="#openMateriales" styleClass="nav-button" text="Materiales"/>
-            <Button maxWidth="Infinity" onAction="#openAlertas" styleClass="nav-button" text="Alertas"/>
+            <Button maxWidth="Infinity" onAction="#openRestauracion" styleClass="nav-button" text="Restauracion"/>
         </VBox>
     </left>
 

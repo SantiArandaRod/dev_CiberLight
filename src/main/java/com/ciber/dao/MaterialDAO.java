@@ -94,6 +94,21 @@ public class MaterialDAO {
             e.printStackTrace();
         }
     }
+
+    public void restaurar(int id) {
+        String sql = "UPDATE material SET activo = TRUE WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Material buscarPorId(int id) {
 
         String sql = "SELECT * FROM material WHERE id = ?";

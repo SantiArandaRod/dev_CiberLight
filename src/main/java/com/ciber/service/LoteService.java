@@ -11,6 +11,7 @@ public class LoteService {
 
     private LoteDAO dao = new LoteDAO();
     private final AuditService auditService = new AuditService();
+    private final NotificationService notificationService = new NotificationService();
 
     public List<Lote> listar() {
         return dao.listar();
@@ -31,10 +32,16 @@ public class LoteService {
         }
 
         dao.insertar(l);
+        notificationService.notifyLoteIniciado(l.getNombre(), l.getTecnico().getNombre());
     }
 
     public void finalizar(int id) {
+        Lote lote = dao.buscarPorId(id);
         dao.finalizar(id);
+
+        if (lote != null && lote.getTecnico() != null) {
+            notificationService.notifyLoteFinalizado(lote.getNombre(), lote.getTecnico().getNombre());
+        }
     }
 
     public void eliminar(int id) {
